@@ -26,3 +26,5 @@ exception
         dbms_output.put_line('Error: ' || sqlerrm);
 end log_salary_changes;
 /
+
+ UPDATE employee SET salary = 5000 WHERE employee_id = 101;
