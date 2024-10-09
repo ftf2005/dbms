@@ -1,0 +1,98 @@
+1. Create the Employee Table
+sql
+Copy code
+create table employee (
+    employee_id number primary key,
+    first_name varchar2(50),
+    salary number
+);
+2. Create the Salary Log Table
+sql
+Copy code
+create table salary_log (
+    employee_id number,
+    old_salary number,
+    new_salary number,
+    change_date date
+);
+3. Create the Customer Table
+sql
+Copy code
+create table customer (
+    customer_id number primary key,
+    customer_name varchar2(50)
+);
+4. Create the Student Table
+sql
+Copy code
+create table student (
+    student_id number primary key,
+    name varchar2(50),
+    marks number,
+    grade varchar2(2)
+);
+5. Create the Voter Table
+sql
+Copy code
+create table voter (
+    voter_id number primary key,
+    name varchar2(50),
+    age number
+);
+6. Before Trigger on Employee Table to Display Salary Difference
+sql
+Copy code
+create or replace trigger before_salary_update
+before update on employee
+for each row
+declare
+    v_salary_difference number;
+begin
+    v_salary_difference := :new.salary - :old.salary;
+    dbms_output.put_line('salary difference: ' || v_salary_difference);
+end before_salary_update;
+/
+7. After Insert Trigger on Employee Table to Insert into Salary Log
+sql
+Copy code
+create or replace trigger after_employee_insert
+after insert on employee
+for each row
+begin
+    insert into salary_log (employee_id, old_salary, new_salary, change_date)
+    values (:new.employee_id, null, :new.salary, sysdate);
+end after_employee_insert;
+/
+8. Statement-Level Trigger After Update on Customer Table
+sql
+Copy code
+create or replace trigger after_customer_update
+after update on customer
+begin
+    dbms_output.put_line('customer table updated.');
+end after_customer_update;
+/
+9. Row-Level Trigger on Student to Update Grade A When Marks > 90
+sql
+Copy code
+create or replace trigger update_grade_on_marks
+before update of marks on student
+for each row
+begin
+    if :new.marks > 90 then
+        :new.grade := 'A';
+    end if;
+end update_grade_on_marks;
+/
+10. Trigger to Check Voting Eligibility
+sql
+Copy code
+create or replace trigger check_voting_eligibility
+before insert on voter
+for each row
+begin
+    if :new.age < 18 then
+        raise_application_error(-20001, 'age must be 18 or older to be eligible to vote.');
+    end if;
+end check_voting_eligibility;
+/
