@@ -14,7 +14,6 @@ update employees set salary = 5000 where employee_id = 101;
 commit; 
 select * from salary_log;
 
-
 create or replace trigger log_salary_changes
 after update of salary
 on employee
@@ -22,5 +21,8 @@ for each row
 begin
     insert into salary_log (employee_id, old_salary, new_salary, change_date)
     values (:old.employee_id, :old.salary, :new.salary, sysdate);
+exception
+    when others then
+        dbms_output.put_line('Error: ' || sqlerrm);
 end log_salary_changes;
 /
