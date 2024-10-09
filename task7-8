@@ -1,20 +1,21 @@
-CREATE TABLE teacher (teacher_id NUMBER PRIMARY KEY, teacher_name VARCHAR2(50));
-CREATE TABLE student (student_id NUMBER PRIMARY KEY, student_name VARCHAR2(50), teacher_id NUMBER, FOREIGN KEY (teacher_id) REFERENCES teacher(teacher_id));
-INSERT INTO teacher (teacher_id, teacher_name) VALUES (1, 'Mr. Smith');
-INSERT INTO teacher (teacher_id, teacher_name) VALUES (2, 'Ms. Johnson');
-INSERT INTO student (student_id, student_name, teacher_id) VALUES (1, 'Alice', 1);
-INSERT INTO student (student_id, student_name, teacher_id) VALUES (2, 'Bob', 2);
-SELECT student_name FROM student WHERE teacher_id = ALL (SELECT teacher_id FROM teacher WHERE teacher_name LIKE 'Ms.%');
-SELECT student_name FROM student WHERE teacher_id = ANY (SELECT teacher_id FROM teacher WHERE teacher_name LIKE 'Mr.%');
-SELECT student_name FROM student s WHERE EXISTS (SELECT 1 FROM teacher t WHERE t.teacher_id = s.teacher_id AND t.teacher_name = 'Mr. Smith');
-SELECT student_name FROM student s WHERE NOT EXISTS (SELECT 1 FROM teacher t WHERE t.teacher_id = s.teacher_id AND t.teacher_name = 'Ms. Johnson');
-SELECT s.student_name FROM student s WHERE s.teacher_id IN (SELECT t.teacher_id FROM teacher t WHERE t.teacher_name = 'Mr. Smith');
-SELECT s.student_name, t.teacher_name FROM student s INNER JOIN teacher t ON s.teacher_id = t.teacher_id;
-SELECT student_name, teacher_name FROM student NATURAL JOIN teacher;
-SELECT s.student_name, t.teacher_name FROM student s LEFT OUTER JOIN teacher t ON s.teacher_id = t.teacher_id;
-SELECT s.student_name, t.teacher_name FROM student s RIGHT OUTER JOIN teacher t ON s.teacher_id = t.teacher_id;
-SELECT s.student_name, t.teacher_name FROM student s FULL OUTER JOIN teacher t ON s.teacher_id = t.teacher_id;
-COMMIT;
+create table teacher (teacher_id number primary key, teacher_name varchar2(50));
+create table student (student_id number primary key, student_name varchar2(50), teacher_id number, foreign key (teacher_id) references teacher(teacher_id));
+insert into teacher (teacher_id, teacher_name) values (1, 'mr. smith');
+insert into teacher (teacher_id, teacher_name) values (2, 'ms. johnson');
+insert into student (student_id, student_name, teacher_id) values (1, 'alice', 1);
+insert into student (student_id, student_name, teacher_id) values (2, 'bob', 2);
+select student_name from student where teacher_id = all (select teacher_id from teacher where teacher_name like 'ms.%');
+select student_name from student where teacher_id = any (select teacher_id from teacher where teacher_name like 'mr.%');
+select student_name from student s where exists (select 1 from teacher t where t.teacher_id = s.teacher_id and t.teacher_name = 'mr. smith');
+select student_name from student s where not exists (select 1 from teacher t where t.teacher_id = s.teacher_id and t.teacher_name = 'ms. johnson');
+select s.student_name from student s where s.teacher_id in (select t.teacher_id from teacher t where t.teacher_name = 'mr. smith');
+select s.student_name, t.teacher_name from student s inner join teacher t on s.teacher_id = t.teacher_id;
+select student_name, teacher_name from student natural join teacher;
+select s.student_name, t.teacher_name from student s left outer join teacher t on s.teacher_id = t.teacher_id;
+select s.student_name, t.teacher_name from student s right outer join teacher t on s.teacher_id = t.teacher_id;
+select s.student_name, t.teacher_name from student s full outer join teacher t on s.teacher_id = t.teacher_id;
+commit;
+
 
 
 sqlplus hu22csen0100999/echavan@//172.21.51.130:1521/orclpdb
