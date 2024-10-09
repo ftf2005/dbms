@@ -51,3 +51,25 @@ begin
 end;
 /
 
+
+
+declare
+    cursor emp_cursor is
+        select employee_id, first_name, salary
+        from employees
+        where department_id = 10;  -- Correct column name
+    
+    v_employee_id employees.employee_id%type;
+    v_first_name employees.first_name%type;
+    v_salary employees.salary%type;
+begin
+    open emp_cursor;
+    loop
+        fetch emp_cursor into v_employee_id, v_first_name, v_salary;
+        exit when emp_cursor%notfound;
+        dbms_output.put_line('employee id: ' || v_employee_id || ', name: ' || v_first_name || ', salary: ' || v_salary);
+    end loop;
+    close emp_cursor;
+end;
+/
+
