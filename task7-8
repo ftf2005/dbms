@@ -1,0 +1,17 @@
+CREATE TABLE teacher (teacher_id NUMBER PRIMARY KEY, teacher_name VARCHAR2(50));
+CREATE TABLE student (student_id NUMBER PRIMARY KEY, student_name VARCHAR2(50), teacher_id NUMBER, FOREIGN KEY (teacher_id) REFERENCES teacher(teacher_id));
+INSERT INTO teacher (teacher_id, teacher_name) VALUES (1, 'Mr. Smith');
+INSERT INTO teacher (teacher_id, teacher_name) VALUES (2, 'Ms. Johnson');
+INSERT INTO student (student_id, student_name, teacher_id) VALUES (1, 'Alice', 1);
+INSERT INTO student (student_id, student_name, teacher_id) VALUES (2, 'Bob', 2);
+SELECT student_name FROM student WHERE teacher_id = ALL (SELECT teacher_id FROM teacher WHERE teacher_name LIKE 'Ms.%');
+SELECT student_name FROM student WHERE teacher_id = ANY (SELECT teacher_id FROM teacher WHERE teacher_name LIKE 'Mr.%');
+SELECT student_name FROM student s WHERE EXISTS (SELECT 1 FROM teacher t WHERE t.teacher_id = s.teacher_id AND t.teacher_name = 'Mr. Smith');
+SELECT student_name FROM student s WHERE NOT EXISTS (SELECT 1 FROM teacher t WHERE t.teacher_id = s.teacher_id AND t.teacher_name = 'Ms. Johnson');
+SELECT s.student_name FROM student s WHERE s.teacher_id IN (SELECT t.teacher_id FROM teacher t WHERE t.teacher_name = 'Mr. Smith');
+SELECT s.student_name, t.teacher_name FROM student s INNER JOIN teacher t ON s.teacher_id = t.teacher_id;
+SELECT student_name, teacher_name FROM student NATURAL JOIN teacher;
+SELECT s.student_name, t.teacher_name FROM student s LEFT OUTER JOIN teacher t ON s.teacher_id = t.teacher_id;
+SELECT s.student_name, t.teacher_name FROM student s RIGHT OUTER JOIN teacher t ON s.teacher_id = t.teacher_id;
+SELECT s.student_name, t.teacher_name FROM student s FULL OUTER JOIN teacher t ON s.teacher_id = t.teacher_id;
+COMMIT;
