@@ -13,3 +13,14 @@ begin open emp_cursor; loop fetch emp_cursor into v_employee_id, v_first_name, v
 update employees set salary = 5000 where employee_id = 101; 
 commit; 
 select * from salary_log;
+
+
+create or replace trigger log_salary_changes
+after update of salary
+on employee
+for each row
+begin
+    insert into salary_log (employee_id, old_salary, new_salary, change_date)
+    values (:old.employee_id, :old.salary, :new.salary, sysdate);
+end log_salary_changes;
+/
