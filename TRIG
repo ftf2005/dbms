@@ -103,3 +103,22 @@ SQL> insert into voter (voter_id, name, age) values (2, 'david', 30);
 1 row created.
 
 SQL> ed trig.sql
+
+
+
+
+
+insert into emp (employee_id, first_name, salary) values (1, 'john', 50000);
+insert into emp (employee_id, first_name, salary) values (2, 'jane', 60000);
+
+insert into customer1 (customer_id, customer_name) values (1, 'acme corp');
+insert into customer1 (customer_id, customer_name) values (2, 'globex inc');
+
+insert into salary_log1 (employee_id, old_salary, new_salary, change_date) values (1, null, 50000, sysdate);
+insert into salary_log1 (employee_id, old_salary, new_salary, change_date) values (2, null, 60000, sysdate);
+
+insert into student1 (student_id, name, marks, grade) values (1, 'alice', 95, 'a');
+insert into student1 (student_id, name, marks, grade) values (2, 'bob', 88, 'b');
+
+insert into voter (voter_id, name, age) values (1, 'charlie', 25);
+insert into voter (voter_id, name, age) values (2, 'david', 30);
