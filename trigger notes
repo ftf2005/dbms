@@ -74,3 +74,11 @@ end;
 /
 
 ALTER TABLE employees ADD department_id NUMBER;
+
+
+
+1.write a before trigger on updation of employee table to display the salary difference 
+2.create a trigger after inster on one table and perform the insertin on another table
+3.cretae a statement level trigger after uodate on customer table 
+4.create a low level trigger on student uodate grade a when marks>90
+5.create a trigger to check the eligiblity of voting uing alert message.
