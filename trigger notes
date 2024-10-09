@@ -73,3 +73,4 @@ begin
 end;
 /
 
+ALTER TABLE employees ADD department_id NUMBER;
