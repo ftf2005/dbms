@@ -1,0 +1,105 @@
+Microsoft Windows [Version 10.0.22631.4112]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\H-CSE-506-23>sqlplus hu22csen0100999/echavan@//172.21.51.130:1521/orclpdb
+
+SQL*Plus: Release 23.0.0.0.0 - Production on Wed Oct 9 15:11:15 2024
+Version 23.4.0.24.05
+
+Copyright (c) 1982, 2024, Oracle.  All rights reserved.
+
+Last Successful login time: Wed Oct 09 2024 10:47:48 +05:30
+
+Connected to:
+Oracle Database 21c Enterprise Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+
+SQL> create table employee (employee_id number primary key, first_name varchar2(50), salary number);
+create table employee (employee_id number primary key, first_name varchar2(50), salary number)
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+Help: https://docs.oracle.com/error-help/db/ora-00955/
+
+
+SQL> CREATE TABLE emp (employee_id NUMBER PRIMARY KEY, first_name VARCHAR2(50), salary NUMBER);
+
+Table created.
+
+SQL> create table salary_log (employee_id number, old_salary number, new_salary number, change_date date);
+create table salary_log (employee_id number, old_salary number, new_salary number, change_date date)
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+Help: https://docs.oracle.com/error-help/db/ora-00955/
+
+
+SQL> create table salary_log1 (employee_id number, old_salary number, new_salary number, change_date date);
+
+Table created.
+
+SQL> create table customer (customer_id number primary key, customer_name varchar2(50));
+create table customer (customer_id number primary key, customer_name varchar2(50))
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+Help: https://docs.oracle.com/error-help/db/ora-00955/
+
+
+SQL> create table customer1 (customer_id number primary key, customer_name varchar2(50));
+
+Table created.
+
+SQL> create table student1 (student_id number primary key, name varchar2(50), marks number, grade varchar2(2));
+
+Table created.
+
+SQL> create table voter (voter_id number primary key, name varchar2(50), age number);
+
+Table created.
+
+SQL> insert into emp (employee_id, first_name, salary) values (1, 'john', 50000);
+
+1 row created.
+
+SQL> insert into emp (employee_id, first_name, salary) values (2, 'jane', 60000);
+
+1 row created.
+
+SQL>
+SQL> insert into customer1 (customer_id, customer_name) values (1, 'acme corp');
+
+1 row created.
+
+SQL> insert into customer1 (customer_id, customer_name) values (2, 'globex inc');
+
+1 row created.
+
+SQL>
+SQL> insert into salary_log1 (employee_id, old_salary, new_salary, change_date) values (1, null, 50000, sysdate);
+
+1 row created.
+
+SQL> insert into salary_log1 (employee_id, old_salary, new_salary, change_date) values (2, null, 60000, sysdate);
+
+1 row created.
+
+SQL>
+SQL> insert into student1 (student_id, name, marks, grade) values (1, 'alice', 95, 'a');
+
+1 row created.
+
+SQL> insert into student1 (student_id, name, marks, grade) values (2, 'bob', 88, 'b');
+
+1 row created.
+
+SQL>
+SQL> insert into voter (voter_id, name, age) values (1, 'charlie', 25);
+
+1 row created.
+
+SQL> insert into voter (voter_id, name, age) values (2, 'david', 30);
+
+1 row created.
+
+SQL> ed trig.sql
