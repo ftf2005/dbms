@@ -15,3 +15,6 @@ SELECT s.student_name, t.teacher_name FROM student s LEFT OUTER JOIN teacher t O
 SELECT s.student_name, t.teacher_name FROM student s RIGHT OUTER JOIN teacher t ON s.teacher_id = t.teacher_id;
 SELECT s.student_name, t.teacher_name FROM student s FULL OUTER JOIN teacher t ON s.teacher_id = t.teacher_id;
 COMMIT;
+
+
+sqlplus hu22csen0100999/echavan@//172.21.51.130:1521/orclpdb
